@@ -1,5 +1,6 @@
 package com.cambio.tipocambio.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class Moneda {
 
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "America/Lima")
     private Date fechaCreacion;
 
     @Column(name = "fecha_actualizacion")

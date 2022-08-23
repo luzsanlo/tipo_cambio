@@ -4,6 +4,7 @@ import com.cambio.tipocambio.dto.MonedaDto;
 import com.cambio.tipocambio.entity.Moneda;
 import com.cambio.tipocambio.repository.IMonedaRepository;
 import com.cambio.tipocambio.service.IMonedaService;
+import com.cambio.tipocambio.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class MonedaServiceImpl implements IMonedaService {
         Moneda moneda = new Moneda();
         moneda.setCodigo(dto.getCodigo());
         moneda.setNombre(dto.getNombre());
-        moneda.setFechaCreacion(new Date());
+        moneda.setFechaCreacion(Util.fechaActual());
         moneda.setEstado(Boolean.TRUE);
 
         return repo.save(moneda);
@@ -30,7 +31,9 @@ public class MonedaServiceImpl implements IMonedaService {
 
     @Override
     public List<Moneda> listar() {
-        return repo.findAll();
+        List<Moneda> lista = repo.findAll();
+
+        return lista;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class MonedaServiceImpl implements IMonedaService {
         Moneda moneda = buscar(id);
         moneda.setNombre(dto.getNombre());
         moneda.setCodigo(dto.getCodigo());
-        moneda.setFechaActualizacion(new Date());
+        moneda.setFechaActualizacion(Util.fechaActual());
 
         return repo.save(moneda);
     }
@@ -55,7 +58,7 @@ public class MonedaServiceImpl implements IMonedaService {
     @Override
     public Moneda eliminar(Long id) {
         Moneda moneda = buscar(id);
-        moneda.setFechaActualizacion(new Date());
+        moneda.setFechaActualizacion(Util.fechaActual());
         moneda.setEstado(Boolean.FALSE);
 
         return repo.save(moneda);
